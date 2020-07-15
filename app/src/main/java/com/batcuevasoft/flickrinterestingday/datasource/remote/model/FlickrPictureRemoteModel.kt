@@ -57,6 +57,6 @@ fun GetTrackPictureParams.toQueryMap() = mapOf(
 fun Photo.toFlickrPicture() = FlickrPicture(
     id.toLong(),
     title,
-    "http://farm${farm}.staticflickr.com/${server}/${id}_${secret}.jpg",
+    "https://farm${farm}.staticflickr.com/${server}/${id}_${secret}.jpg",
     ispublic == 1
 )
