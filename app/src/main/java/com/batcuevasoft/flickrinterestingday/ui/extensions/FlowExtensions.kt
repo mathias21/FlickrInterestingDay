@@ -8,3 +8,9 @@ fun <T> Flow<T>.asLiveData() = liveData {
         emit(it)
     }
 }
+
+fun <T> Flow<T>.asPagedLiveData() = liveData {
+    collect {
+        emit(it)
+    }
+}

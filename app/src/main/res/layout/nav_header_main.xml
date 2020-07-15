@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/nav_header_height"
+    android:background="@color/middle_grey"
+    android:gravity="bottom"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/userImage"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="72dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_splash_logo" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/nav_header_user"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:text="@string/username"
+        tools:text="Username"
+        app:layout_constraintStart_toStartOf="@+id/userImage"
+        app:layout_constraintTop_toBottomOf="@+id/userImage" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/nav_header_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@+id/userImage"
+        app:layout_constraintTop_toBottomOf="@+id/nav_header_user"
+        android:lines="2"
+        android:text="@string/email"
+        android:maxWidth="128dp"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/nav_header_email"
+        app:layout_constraintBottom_toBottomOf="@id/nav_header_email"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/colorAccent"
+        android:layout_marginEnd="16dp"
+        android:text="@string/version"
+        tools:text="v 1.0"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

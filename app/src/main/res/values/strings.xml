@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">FlickrInterestingDay</string>
+    <string name="today">Today</string>
+    <string name="past">Past</string>
+    <string name="public_type">Public</string>
+    <string name="default_error">Something went wrong...</string>
+    <string name="retry">Retry</string>
+    <string name="get_pictures_error">Error getting pictures, please retry again...</string>
+    <string name="pic_detail">Picture detail</string>
+    <string name="email">myemail@flickr.com</string>
+    <string name="version">v 1.0</string>
+    <string name="username">Username</string>
 </resources>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/today_fragment">
+
+    <fragment
+        android:id="@+id/today_fragment"
+        android:name="com.batcuevasoft.flickrinterestingday.ui.main.today.TodayFragment"
+        android:label="Todays pics"
+        tools:layout="@layout/today_fragment">
+        <action
+            android:id="@+id/action_todayFragment_to_picture_detail"
+            app:destination="@id/detail_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/past_fragment"
+        android:name="com.batcuevasoft.flickrinterestingday.ui.main.past.PastFragment"
+        android:label="Pasts pics"
+        tools:layout="@layout/past_fragment" />
+
+    <fragment
+        android:id="@+id/detail_fragment"
+        android:name="com.batcuevasoft.flickrinterestingday.ui.picturedetail.FlickrPictureDetailFragment"
+        tools:layout="@layout/flickr_picture_detail_fragment">
+        <argument
+            android:name="picture"
+            app:argType="com.batcuevasoft.flickrinterestingday.data.model.FlickrPicture" />
+    </fragment>
+
+</navigation>
