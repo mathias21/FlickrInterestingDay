@@ -11,7 +11,7 @@ import org.koin.core.get
 import java.text.SimpleDateFormat
 import java.util.*
 
-class PictureRepositoryImp : PictureRepository, KoinComponent {
+class FlickrPictureRepositoryImp : FlickrPictureRepository, KoinComponent {
 
     override fun getYesterdayPictures(): Flow<PagingData<FlickrPicture>> {
         return Pager(PagingConfig(pageSize = 20, initialLoadSize = 50)) {
@@ -24,7 +24,7 @@ class PictureRepositoryImp : PictureRepository, KoinComponent {
     private fun getYesterdayDateString(): String {
         val formatter = SimpleDateFormat("yyyy-MM-dd")
         val date = Calendar.getInstance().apply {
-            add(Calendar.DATE, -1)
+            add(Calendar.DATE, -2)
         }
         return formatter.format(date.time)
     }

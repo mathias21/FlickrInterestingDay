@@ -10,4 +10,5 @@
     <string name="email">myemail@flickr.com</string>
     <string name="version">v 1.0</string>
     <string name="username">Username</string>
+    <string name="pastText">Put here another fragment</string>
 </resources>

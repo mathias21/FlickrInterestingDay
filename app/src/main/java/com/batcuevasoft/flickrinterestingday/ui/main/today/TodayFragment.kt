@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewTreeObserver
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavGraph
@@ -53,13 +54,13 @@ class TodayFragment : BaseFragment<TodayViewModel>(R.layout.today_fragment, Toda
     @ExperimentalCoroutinesApi
     override fun attachObservers() {
         viewModel.todayPictures.observe(viewLifecycleOwner, Observer { pictureList ->
-            hideLoading()
             swipeRefresh.isRefreshing = false
             // I still dont know why Google is now adding threading to View level... after so many years
             // recommending not to do it.
             lifecycleScope.launch(Dispatchers.IO) {
                 adapter.submitData(pictureList)
             }
+            hideLoading()
         })
 
         viewModel.todayEvents.observe(viewLifecycleOwner, Observer {
