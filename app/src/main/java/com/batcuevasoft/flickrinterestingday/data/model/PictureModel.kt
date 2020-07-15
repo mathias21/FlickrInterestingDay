@@ -1,6 +1,5 @@
 package com.batcuevasoft.flickrinterestingday.data.model
 
-import com.batcuevasoft.flickrinterestingday.ui.adapter.StableIdElement
 import java.io.Serializable
 
 data class FlickrPicture(
@@ -8,6 +7,4 @@ data class FlickrPicture(
     val name: String,
     val pictureUrl: String,
     val isPublic: Boolean
-) : StableIdElement, Serializable {
-    override fun getReusableId() = id
-}
+) : Serializable
