@@ -16,6 +16,7 @@ import com.batcuevasoft.flickrinterestingday.R
 import com.batcuevasoft.flickrinterestingday.data.model.FlickrPicture
 import com.batcuevasoft.flickrinterestingday.ui.BaseFragment
 import com.batcuevasoft.flickrinterestingday.ui.adapter.FlickrLoadStateAdapter
+import com.batcuevasoft.flickrinterestingday.ui.extensions.afterMeasure
 import com.batcuevasoft.flickrinterestingday.ui.extensions.gone
 import com.batcuevasoft.flickrinterestingday.ui.extensions.visible
 import com.google.android.material.snackbar.Snackbar
@@ -35,20 +36,7 @@ class TodayFragment : BaseFragment<TodayViewModel>(R.layout.today_fragment, Toda
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        with(picturesRecycler) {
-            adapter = this@TodayFragment.adapter.withLoadStateHeaderAndFooter(
-                header = FlickrLoadStateAdapter(viewModel::refreshPictures),
-                footer = FlickrLoadStateAdapter(viewModel::refreshPictures)
-            )
-            val layoutMangr = LinearLayoutManager(requireContext())
-            layoutManager = layoutMangr
-
-            postponeEnterTransition()
-            afterMeasure { startPostponedEnterTransition() }
-        }
-        swipeRefresh.setOnRefreshListener {
-            viewModel.refreshPictures()
-        }
+        setupRecylcer()
     }
 
     @ExperimentalCoroutinesApi
@@ -68,10 +56,37 @@ class TodayFragment : BaseFragment<TodayViewModel>(R.layout.today_fragment, Toda
                 TodayViewEvent.SHOW_LOADING -> showLoading()
                 TodayViewEvent.HIDE_LOADING -> hideLoading()
                 TodayViewEvent.DEFAULT_ERROR -> showError(getString(R.string.default_error))
-                TodayViewEvent.GET_PICTURES_ERROR -> showError(getString(R.string.get_pictures_error))
+                TodayViewEvent.GET_PICTURES_ERROR -> showError(getString(R.string.get_pictures_error)) {viewModel.refreshPictures()}
                 null -> Unit
             }
         })
+
+        // This is needed when using paging 3, errors will be collected by pagesource
+        lifecycleScope.launch {
+            adapter.loadStateFlow.collectLatest { loadStates ->
+                if (loadStates.refresh is LoadState.Error) {
+                    hideLoading()
+                    showError(getString(R.string.default_error))
+                }
+            }
+        }
+    }
+
+    private fun setupRecylcer() {
+        with(picturesRecycler) {
+            adapter = this@TodayFragment.adapter.withLoadStateHeaderAndFooter(
+                header = FlickrLoadStateAdapter(viewModel::refreshPictures),
+                footer = FlickrLoadStateAdapter(viewModel::refreshPictures)
+            )
+            val layoutMangr = LinearLayoutManager(requireContext())
+            layoutManager = layoutMangr
+
+            postponeEnterTransition()
+            afterMeasure { startPostponedEnterTransition() }
+        }
+        swipeRefresh.setOnRefreshListener {
+            viewModel.refreshPictures()
+        }
     }
 
     private fun showError(text: String, retry: (() -> Unit)? = null) {
@@ -92,16 +107,4 @@ class TodayFragment : BaseFragment<TodayViewModel>(R.layout.today_fragment, Toda
     private fun showLoading() {
         loadingLayout.visible()
     }
-
-}
-
-inline fun <T : View> T.afterMeasure(crossinline f: T.() -> Unit) {
-    viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
-        override fun onGlobalLayout() {
-            if (measuredWidth > 0 && measuredHeight > 0) {
-                viewTreeObserver.removeOnGlobalLayoutListener(this)
-                f()
-            }
-        }
-    })
 }

@@ -41,6 +41,7 @@ class TodayViewModel(
         when (it) {
             is FlickrNullBodyException -> emitEvent(GET_PICTURES_ERROR)
             is FlickrOtherException -> emitEvent(DEFAULT_ERROR)
+            else -> emitEvent(DEFAULT_ERROR)
         }
     }
 
@@ -53,13 +54,13 @@ class TodayViewModel(
     @ExperimentalCoroutinesApi
     fun refreshPictures() {
         viewModelScope.launch(coroutineDispatcherProvider.io) {
+            emitEvent(SHOW_LOADING)
             pictureRepository.getYesterdayPictures()
-                .onStart { emitEvent(SHOW_LOADING) }
                 .catch { handleGetPicturesError(it) }
                 .cachedIn(this)
-                .onCompletion { emitEvent(HIDE_LOADING) }
                 .collect {
                     _todayPictures.postValue(it)
+                    emitEvent(HIDE_LOADING)
                 }
         }
     }
