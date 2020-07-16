@@ -9,12 +9,14 @@ import io.mockk.clearMocks
 import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
-import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.TestCoroutineDispatcher
+import kotlinx.coroutines.test.TestCoroutineScope
 import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.setMain
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
 import org.junit.Test
@@ -28,9 +30,12 @@ class FlickrPictureRepositoryTest : BaseRepositoryTest() {
 
     private val flickrPictureRemoteDatasource: FlickrPictureRemoteDatasource = mockk()
     private lateinit var flickrRepository: FlickrPictureRepository
+    @ExperimentalCoroutinesApi
+    private val testDispatcher = TestCoroutineDispatcher()
 
     @Before
     fun setup() {
+        Dispatchers.setMain(testDispatcher)
         clearMocks(flickrPictureRemoteDatasource)
         startInjection {
             module {
@@ -47,9 +52,10 @@ class FlickrPictureRepositoryTest : BaseRepositoryTest() {
     @Test
     fun `when calling flickrRepository to get pictures, we verify paging returned is correct`() {
         runBlockingTest {
-            val flow = flickrRepository.getYesterdayPictures()
-            flow.collect {
-                // We would do validation here, still no documentation how to test pagingData
+            withContext(Dispatchers.Main) {
+                // If I collect this, then the following issue shows up
+                //https://github.com/Kotlin/kotlinx.coroutines/issues/1204
+                flickrRepository.getYesterdayPictures()
             }
         }
     }

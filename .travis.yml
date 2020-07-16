@@ -31,3 +31,4 @@ before_install:
 script:
   - . ./ci/prepare_env.sh
   - . ./ci/build.sh
+  - . ./ci/test.sh
