@@ -39,7 +39,6 @@ class TodayFragment : BaseFragment<TodayViewModel>(R.layout.today_fragment, Toda
         setupRecylcer()
     }
 
-    @ExperimentalCoroutinesApi
     override fun attachObservers() {
         viewModel.todayPictures.observe(viewLifecycleOwner, Observer { pictureList ->
             swipeRefresh.isRefreshing = false
