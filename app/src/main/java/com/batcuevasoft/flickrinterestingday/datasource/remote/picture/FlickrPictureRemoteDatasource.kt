@@ -1,8 +1,6 @@
 package com.batcuevasoft.flickrinterestingday.datasource.remote.picture
 
-import com.batcuevasoft.flickrinterestingday.datasource.remote.model.GetTrackPictureParams
-import com.batcuevasoft.flickrinterestingday.datasource.remote.model.PictureWrapperRemoteEntity
-import com.batcuevasoft.flickrinterestingday.datasource.remote.model.toQueryMap
+import com.batcuevasoft.flickrinterestingday.datasource.remote.model.*
 
 
 class FlickrPictureRemoteDatasourceImp(
@@ -10,8 +8,8 @@ class FlickrPictureRemoteDatasourceImp(
 ) : FlickrPictureRemoteDatasource {
 
     override fun getPicturesFromDate(dateString: String, page: Int): PictureWrapperRemoteEntity {
-        val trackPictureResponse = flickrPictureService.getTrackPicture(
-            GetTrackPictureParams(date = dateString, page = page).toQueryMap()
+        val trackPictureResponse = flickrPictureService.getInterstingPictures(
+            GetInterestingPicturesParams(date = dateString, page = page).toQueryMap()
         ).execute()
         if (trackPictureResponse.isSuccessful) {
             trackPictureResponse.body()?.let {
@@ -22,8 +20,15 @@ class FlickrPictureRemoteDatasourceImp(
             throw FlickrOtherException()
         }
     }
+
+    override fun getPlacePicturesFromTag(tag: String): PictureWrapperRemoteEntity {
+        flickrPictureService.getPlacePicturesByTag(
+
+        )
+    }
 }
 
 interface FlickrPictureRemoteDatasource {
     fun getPicturesFromDate(dateString: String, page: Int): PictureWrapperRemoteEntity
+    fun getPlacePicturesFromTag(tag: String): PictureWrapperRemoteEntity
 }

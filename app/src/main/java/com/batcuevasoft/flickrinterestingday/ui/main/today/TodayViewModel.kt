@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.batcuevasoft.flickrinterestingday.data.model.FlickrPicture
-import com.batcuevasoft.flickrinterestingday.data.picturerepository.FlickrPictureRepository
+import com.batcuevasoft.flickrinterestingday.data.pictures.FlickrPictureRepository
 import com.batcuevasoft.flickrinterestingday.datasource.remote.picture.FlickrNullBodyException
 import com.batcuevasoft.flickrinterestingday.datasource.remote.picture.FlickrOtherException
 import com.batcuevasoft.flickrinterestingday.ui.main.today.TodayViewEvent.*
@@ -15,8 +15,6 @@ import com.batcuevasoft.flickrinterestingday.ui.viewmodelutils.Event
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.onCompletion
-import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 

@@ -32,7 +32,7 @@ data class Photo(
 )
 
 //api key, accuracy(16), content_type, media(photos), geo_context(2), lat, long, radius(1)
-data class GetTrackPictureParams(
+data class GetInterestingPicturesParams(
     val date: String,
     val apiKey: String = "51f62ed1594b40bb572d2225098175f8",
     val contentType: String = "1",
@@ -43,7 +43,7 @@ data class GetTrackPictureParams(
     val page: Int
 )
 
-fun GetTrackPictureParams.toQueryMap() = mapOf(
+fun GetInterestingPicturesParams.toQueryMap() = mapOf(
     "date" to date,
     "api_key" to apiKey,
     "content_type" to contentType,

@@ -10,5 +10,8 @@ import retrofit2.http.QueryMap
 interface FlickrPictureService {
 
     @GET("?method=flickr.interestingness.getList")
-    fun getTrackPicture(@QueryMap params: Map<String, String>): Call<PictureWrapperRemoteEntity>
+    fun getInterstingPictures(@QueryMap params: Map<String, String>): Call<PictureWrapperRemoteEntity>
+
+    @GET("?method=flickr.photos.geo.photosForLocation")
+    fun getPlacePicturesByTag(@QueryMap params: Map<String, String>): Call<PictureWrapperRemoteEntity>
 }

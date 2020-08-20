@@ -1,6 +1,6 @@
 package com.batcuevasoft.flickrinterestingday.viewmodel
 
-import com.batcuevasoft.flickrinterestingday.data.picturerepository.FlickrPictureRepository
+import com.batcuevasoft.flickrinterestingday.data.pictures.FlickrPictureRepository
 import com.batcuevasoft.flickrinterestingday.ui.main.today.TodayViewModel
 import com.batcuevasoft.flickrinterestingday.ui.viewmodelutils.CoroutineDispatcherProvider
 import com.batcuevasoft.flickrinterestingday.viewmodel.instrumentation.observeOnce

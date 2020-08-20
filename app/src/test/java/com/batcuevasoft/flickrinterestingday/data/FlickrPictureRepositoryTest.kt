@@ -1,23 +1,16 @@
 package com.batcuevasoft.flickrinterestingday.data
 
 import com.batcuevasoft.flickrinterestingday.data.instrumentation.FlickrPictureRepositoryInstrumentation.getPictureWrapperRemoteEntity
-import com.batcuevasoft.flickrinterestingday.data.picturerepository.FlickrPictureRepository
-import com.batcuevasoft.flickrinterestingday.data.picturerepository.FlickrPictureRepositoryImp
-import com.batcuevasoft.flickrinterestingday.datasource.remote.model.PictureWrapperRemoteEntity
+import com.batcuevasoft.flickrinterestingday.data.pictures.FlickrPictureRepository
+import com.batcuevasoft.flickrinterestingday.data.pictures.FlickrPictureRepositoryImp
 import com.batcuevasoft.flickrinterestingday.datasource.remote.picture.FlickrPictureRemoteDatasource
 import io.mockk.clearMocks
 import io.mockk.every
-import io.mockk.just
 import io.mockk.mockk
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.TestCoroutineDispatcher
-import kotlinx.coroutines.test.TestCoroutineScope
 import kotlinx.coroutines.test.runBlockingTest
 import kotlinx.coroutines.test.setMain
-import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
 import org.junit.Test
 import org.junit.jupiter.api.TestInstance
